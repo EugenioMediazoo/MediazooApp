@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
-//using UnityEngine.EventSystems;
 
 public class UIManagerDockBar : MonoBehaviour
 {
@@ -23,22 +22,31 @@ public class UIManagerDockBar : MonoBehaviour
     public GameObject CalendarContent;
     public GameObject TeamConent;
 
+    //scrolling
+    public GameObject ScrollView;
+    private float ScrollWait;
 
     public void Awake()
     {
         TeamConent.transform.DOMoveX(OffScreenRight.transform.position.x, 0);
+        ScrollWait = ScrollView.GetComponent<AutoScroll>().ScrollSpeed;
     }
 
     public void CalendarCanvas()
     {
-        CalendarContent.transform.DOMoveX(ScreenCenter.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic);
-        TeamConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic);
-    }
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.PrependInterval(ScrollWait)
+          .Append(CalendarContent.transform.DOMoveX(ScreenCenter.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+          .Join(TeamConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+    }    
 
     public void TeamCanvas()
     {
-        CalendarContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic);
-        TeamConent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic);
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.PrependInterval(ScrollWait)
+          .Append(CalendarContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+          .Join(TeamConent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+        
     }
 
 }

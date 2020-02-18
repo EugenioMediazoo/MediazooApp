@@ -74,8 +74,6 @@ public class UIManager : MonoBehaviour
         ScrollViewAlpha.alpha = 1;
     }
 
-
-
 public void SphereScene()
     {
         if (CalendarSceneBool)
