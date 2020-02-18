@@ -21,6 +21,7 @@ public class UIManagerDockBar : MonoBehaviour
     //screens
     public GameObject CalendarContent;
     public GameObject TeamConent;
+    public GameObject ProfileContent;
 
     //scrolling
     public GameObject ScrollView;
@@ -29,6 +30,8 @@ public class UIManagerDockBar : MonoBehaviour
     public void Awake()
     {
         TeamConent.transform.DOMoveX(OffScreenRight.transform.position.x, 0);
+        ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, 0);
+
         ScrollWait = ScrollView.GetComponent<AutoScroll>().ScrollSpeed;
     }
 
@@ -37,7 +40,8 @@ public class UIManagerDockBar : MonoBehaviour
         Sequence mySequence = DOTween.Sequence();
         mySequence.PrependInterval(ScrollWait)
           .Append(CalendarContent.transform.DOMoveX(ScreenCenter.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-          .Join(TeamConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+          .Join(TeamConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+          .Join(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
     }    
 
     public void TeamCanvas()
@@ -45,8 +49,17 @@ public class UIManagerDockBar : MonoBehaviour
         Sequence mySequence = DOTween.Sequence();
         mySequence.PrependInterval(ScrollWait)
           .Append(CalendarContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-          .Join(TeamConent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
-        
+          .Join(TeamConent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+          .Join(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+    }
+
+    public void ProfileCanvas()
+    {
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.PrependInterval(ScrollWait)
+          .Append(CalendarContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+          .Join(TeamConent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+          .Join(ProfileContent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
     }
 
 }
