@@ -9,16 +9,16 @@ public class ResizeHeight : MonoBehaviour
     public RectTransform Child;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         float ContainerWidthX;
         ContainerWidthX = Container.sizeDelta.x;
         Container.sizeDelta = new Vector2(ContainerWidthX, (ContainerWidthX * 0.5625f));
-
+        Invoke("changeChild", 1);
         //ratio  1080/1920 = 0.5625
     }
 
-    void Start()
+    public void changeChild()
     {
         Child.sizeDelta = new Vector2(Container.sizeDelta.x, Container.sizeDelta.y);
     }

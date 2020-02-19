@@ -14,9 +14,23 @@ public class CamGyro : MonoBehaviour
         Input.gyro.enabled = true;
     }
 
+    public void ReStart()
+    {
+        Input.gyro.enabled = false;
+        camParent.transform.Rotate(0, 0, 0);
+        this.transform.Rotate(0, 0, 0);
+        Input.gyro.enabled = true;
+    }
+
     void Update()
     {
-        camParent.transform.Rotate(0, -Input.gyro.rotationRateUnbiased.y, 0);
-        this.transform.Rotate(-Input.gyro.rotationRateUnbiased.x, 0, 0);
+
+        if (Input.gyro.enabled)
+        {
+            camParent.transform.Rotate(0, -Input.gyro.rotationRateUnbiased.y, 0);
+            this.transform.Rotate(-Input.gyro.rotationRateUnbiased.x, 0, 0);
+        }
+        else
+            return;
     }
 }
