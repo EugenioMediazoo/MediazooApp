@@ -23,8 +23,18 @@ public class UIManager : MonoBehaviour
     private CanvasGroup MonocromeBGAlpha;
     public GameObject SignInUp;
     private CanvasGroup SignInUpAlpha;
-    public GameObject ScrollView;
-    private CanvasGroup ScrollViewAlpha;
+    //public GameObject ScrollView;
+    //private CanvasGroup ScrollViewAlpha;
+
+    public GameObject CalendarContent;
+    private CanvasGroup CalendarContentAlpha;
+    public GameObject ManagerContent;
+    private CanvasGroup ManagerContentAlpha;
+    public GameObject TeamContent;
+    private CanvasGroup TeamContentAlpha;
+    public GameObject ProfileContent;
+    private CanvasGroup ProfileContentAlpha;
+
 
     public GameObject ReminderMessages;
     
@@ -36,8 +46,13 @@ public class UIManager : MonoBehaviour
         HomeBGAlpha = HomeBG.GetComponent<CanvasGroup>();
         MonocromeBGAlpha = MonocromeBG.GetComponent<CanvasGroup>();
         SignInUpAlpha = SignInUp.GetComponent<CanvasGroup>();
-        ScrollViewAlpha = ScrollView.GetComponent<CanvasGroup>();
-        
+        //ScrollViewAlpha = ScrollView.GetComponent<CanvasGroup>();
+
+        CalendarContentAlpha = CalendarContent.GetComponent<CanvasGroup>();
+        ManagerContentAlpha = ManagerContent.GetComponent<CanvasGroup>();
+        TeamContentAlpha = TeamContent.GetComponent<CanvasGroup>();
+        ProfileContentAlpha = ProfileContent.GetComponent<CanvasGroup>();
+
         CalendarSceneBool = true;
     }
 
@@ -52,13 +67,13 @@ public class UIManager : MonoBehaviour
         //    CalendarButton.Select();
     }
 
-    public void CalendarScene()
+    public void NotSphereScene()
     {
         if (!CalendarSceneBool)
         {
             //SceneManager.LoadScene(Onboarding, LoadSceneMode.Single);
             DOTween.To(() => MonocromeBGAlpha.alpha, x => MonocromeBGAlpha.alpha = x, 1, 0.2f).SetEase(Ease.InQuad);
-            StartCoroutine(FadeInCalendar());
+            StartCoroutine(FadeInNotSphereScene());
 
             CalendarSceneBool =! CalendarSceneBool;
         }
@@ -66,12 +81,17 @@ public class UIManager : MonoBehaviour
             return;
     }
 
-    IEnumerator FadeInCalendar()
+    IEnumerator FadeInNotSphereScene()
     {
         yield return new WaitForSeconds(0.2f);
         HomeBGAlpha.alpha = 1;
         SignInUpAlpha.alpha = 1;
-        ScrollViewAlpha.alpha = 1;
+        //ScrollViewAlpha.alpha = 1;
+
+        CalendarContentAlpha.alpha = 1;
+        ManagerContentAlpha.alpha = 1;
+        TeamContentAlpha.alpha = 1;
+       // ProfileContentAlpha.alpha = 1;
     }
 
 public void SphereScene()
@@ -85,7 +105,11 @@ public void SphereScene()
             DOTween.To(() => MonocromeBGAlpha.alpha, x => MonocromeBGAlpha.alpha = x, 0, 0.2f).SetEase(Ease.InQuad);
 
             SignInUpAlpha.alpha = 0;
-            ScrollViewAlpha.alpha = 0;
+            //ScrollViewAlpha.alpha = 0;
+            CalendarContentAlpha.alpha = 0;
+            ManagerContentAlpha.alpha = 0;
+            TeamContentAlpha.alpha = 0;
+           // ProfileContentAlpha.alpha = 0;
 
             CalendarSceneBool = !CalendarSceneBool;
         }
