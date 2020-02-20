@@ -91,7 +91,7 @@ public class UIManager : MonoBehaviour
         CalendarContentAlpha.alpha = 1;
         ManagerContentAlpha.alpha = 1;
         TeamContentAlpha.alpha = 1;
-       // ProfileContentAlpha.alpha = 1;
+        ProfileContentAlpha.alpha = 1;
     }
 
 public void SphereScene()
@@ -109,7 +109,7 @@ public void SphereScene()
             CalendarContentAlpha.alpha = 0;
             ManagerContentAlpha.alpha = 0;
             TeamContentAlpha.alpha = 0;
-           // ProfileContentAlpha.alpha = 0;
+            ProfileContentAlpha.alpha = 0;
 
             CalendarSceneBool = !CalendarSceneBool;
         }
