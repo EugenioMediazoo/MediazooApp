@@ -6,7 +6,7 @@ public class CamGyro : MonoBehaviour
 {
     GameObject camParent;
 
-    void Start()
+    public void Start()
     {
         camParent = new GameObject("CamParent");
         camParent.transform.position = this.transform.position;
@@ -14,11 +14,11 @@ public class CamGyro : MonoBehaviour
         Input.gyro.enabled = true;
     }
 
-    public void ReStart()
+    public void StartOnCall()
     {
-        Input.gyro.enabled = false;
-        camParent.transform.Rotate(0, 0, 0);
-        this.transform.Rotate(0, 0, 0);
+        camParent = new GameObject("CamParent");
+        camParent.transform.position = this.transform.position;
+        this.transform.parent = camParent.transform;
         Input.gyro.enabled = true;
     }
 
