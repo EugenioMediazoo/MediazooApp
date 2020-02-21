@@ -4,14 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.Video;
 
 public class InstructionButton : MonoBehaviour
 {
     //cards
     public GameObject NextCardPivot;
     private CanvasGroup NextCardPivotCG;
+    //public VideoPlayer NextVideo;
     public GameObject CurrentCardPivot;
     private CanvasGroup CurrentCardPivotCG;
+   // public VideoPlayer CurrentVideo;
 
     public GameObject Marker;
 
@@ -31,10 +34,12 @@ public class InstructionButton : MonoBehaviour
     {
         if (NextCardPivot != null)
         {
+            //NextVideo.Play();
             NextCardPivot.transform.DORotate(new Vector3(0, 0, 0), animationSpeed, RotateMode.Fast).SetEase(Ease.InOutBack);
             DOTween.To(() => NextCardPivotCG.alpha, x => NextCardPivotCG.alpha = x, 1, (animationSpeed/2)).SetEase(Ease.InCubic);
         }
 
+        //CurrentVideo.Stop();
         CurrentCardPivot.transform.DORotate(new Vector3(0, 0, 25), animationSpeed, RotateMode.Fast).SetEase(Ease.InOutBack);
         DOTween.To(() => CurrentCardPivotCG.alpha, x => CurrentCardPivotCG.alpha = x, 0, animationSpeed).SetEase(Ease.InOutCubic).SetDelay(0.5f);
 

@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
-//using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
@@ -34,7 +33,6 @@ public class UIManager : MonoBehaviour
     private CanvasGroup TeamContentAlpha;
     public GameObject ProfileContent;
     private CanvasGroup ProfileContentAlpha;
-
 
     public GameObject ReminderMessages;
     
@@ -94,7 +92,7 @@ public class UIManager : MonoBehaviour
         ProfileContentAlpha.alpha = 1;
     }
 
-public void SphereScene()
+    public void SphereScene()
     {
         if (CalendarSceneBool)
         {
@@ -116,5 +114,5 @@ public void SphereScene()
         else
             return;
     }
-    
+
 }

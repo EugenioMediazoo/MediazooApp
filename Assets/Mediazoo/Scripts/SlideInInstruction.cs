@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Video;
 
 public class SlideInInstruction : MonoBehaviour
 {
