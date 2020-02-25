@@ -13,53 +13,67 @@ public class UIManagerSignIn : MonoBehaviour
     private CanvasGroup chatCG;
     private int o = 0;
 
-    private void Awake()
-    {
-        SignIn.SetActive(true);
-    }
+    public GameObject Typing;
+    public CanvasGroup[] dotsCG;
 
-    private void Start()
-    {
-        //chats[o].SetActive(true);
-        //Debug.Log(chats[o].name);
-        //Invoke("MyFunction", 0.2f);
-        StartCoroutine(MyFunctions());
-    }
+    //private void Start()
+    //{
+    //    Invoke("starter", 0);
+    //    Invoke("typing", 0);
+    //}
 
-    public void MyFunction()
-    {
-        chats[o].SetActive(true);
-        //Debug.Log(chats[o].name);
+    //public void MyFunction()
+    //{
+    //    chats[o].SetActive(true);
+    //    //Debug.Log(chats[o].name);
 
-        chatCG = chats[o].GetComponent<CanvasGroup>();
+    //    chatCG = chats[o].GetComponent<CanvasGroup>();
 
-        //Debug.Log("Before" + chatCG.name + "alpha " + chatCG.alpha);
-        DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, 0.5f).SetEase(Ease.InCubic).OnComplete(MyFunction)/*.SetDelay(2)*/;
-        //Debug.Log("After" + chatCG.name + "alpha " +  chatCG.alpha);
+    //    //Debug.Log("Before" + chatCG.name + "alpha " + chatCG.alpha);
+    //    DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, 0.5f).SetEase(Ease.InCubic).OnComplete(MyFunction)/*.SetDelay(2)*/;
+    //    //Debug.Log("After" + chatCG.name + "alpha " +  chatCG.alpha);
 
-        o++;
-    }
+    //    o++;
+    //}
 
     public void starter()
     {
+        SignIn.SetActive(true);
         StartCoroutine(MyFunctions());
     }
 
     IEnumerator MyFunctions()
     {
+        yield return new WaitForSeconds(1.2f);
 
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(2);
+        if (o < chats.Length)
+        {
+            chats[o].SetActive(true);
+            //Debug.Log(chats[o].name);
 
-        chats[o].SetActive(true);
-        //Debug.Log(chats[o].name);
+            chatCG = chats[o].GetComponent<CanvasGroup>();
 
-        chatCG = chats[o].GetComponent<CanvasGroup>();
+            //Debug.Log("Before" + chatCG.name + "alpha " + chatCG.alpha);
+            DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, 0.5f).SetEase(Ease.InQuart).OnComplete(starter)/*.SetDelay(2)*/;
+            //Debug.Log("After" + chatCG.name + "alpha " +  chatCG.alpha);
 
-        //Debug.Log("Before" + chatCG.name + "alpha " + chatCG.alpha);
-        DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, 0.5f).SetEase(Ease.InCubic).OnComplete(starter)/*.SetDelay(2)*/;
-        //Debug.Log("After" + chatCG.name + "alpha " +  chatCG.alpha);
+            o++;
+        }
+        else
+        {
+            Typing.SetActive(false);
+            yield break;
+        }
+    }
 
-        o++;
+    public void typing()
+    {
+        Typing.SetActive(true);
+
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(DOTween.To(() => dotsCG[0].alpha, x => dotsCG[0].alpha = x, 0.8f, 0.2f).SetEase(Ease.InOutQuint).SetLoops(0, LoopType.Yoyo))
+            .Append(DOTween.To(() => dotsCG[1].alpha, x => dotsCG[1].alpha = x, 0.8f, 0.2f).SetEase(Ease.InOutQuint).SetLoops(0, LoopType.Yoyo))
+            .Append(DOTween.To(() => dotsCG[2].alpha, x => dotsCG[2].alpha = x, 0.8f, 0.2f).SetEase(Ease.InOutQuint).SetLoops(0, LoopType.Yoyo))
+            .SetLoops(-1);
     }
 }

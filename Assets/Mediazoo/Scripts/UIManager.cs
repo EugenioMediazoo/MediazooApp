@@ -35,6 +35,8 @@ public class UIManager : MonoBehaviour
     private CanvasGroup ProfileContentAlpha;
 
     public GameObject ReminderMessages;
+
+    public GameObject LoadingCircle;
     
     public void Awake()
     {
@@ -79,11 +81,24 @@ public class UIManager : MonoBehaviour
             return;
     }
 
+    public void SignInUpCanvas()
+    {
+        //StartCoroutine(FadeInNotSphereScene());
+
+        //MonocromeBGAlpha.alpha = 1;
+
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(LoadingCircle.transform.DOScale(new Vector3(30, 30, 30), 0.8f).SetEase(Ease.InQuad))
+            //.Join(DOTween.To(() => HomeBGAlpha.alpha, x => HomeBGAlpha.alpha = x, 0, 0.2f).SetEase(Ease.InQuad))
+            .Join(DOTween.To(() => SignInUpAlpha.alpha, x => SignInUpAlpha.alpha = x, 0, 0.2f).SetEase(Ease.InQuad));
+    }
+
     IEnumerator FadeInNotSphereScene()
     {
         yield return new WaitForSeconds(0.2f);
-        HomeBGAlpha.alpha = 1;
-        SignInUpAlpha.alpha = 1;
+        //HomeBGAlpha.alpha = 1;
+        //SignInUpAlpha.alpha = 1;
+
         //ScrollViewAlpha.alpha = 1;
 
         CalendarContentAlpha.alpha = 1;
