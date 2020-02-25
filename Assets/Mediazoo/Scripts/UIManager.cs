@@ -22,6 +22,8 @@ public class UIManager : MonoBehaviour
     private CanvasGroup MonocromeBGAlpha;
     public GameObject SignInUp;
     private CanvasGroup SignInUpAlpha;
+    public GameObject ScrollViewChat;
+    private CanvasGroup ScrollViewChatAlpha;
     public GameObject ScrollView;
     private CanvasGroup ScrollViewAlpha;
 
@@ -37,15 +39,16 @@ public class UIManager : MonoBehaviour
     public GameObject ReminderMessages;
 
     public GameObject LoadingCircle;
-    
+
     public void Awake()
     {
-        if(ReminderMessages != null)
+        if (ReminderMessages != null)
             ReminderMessages.SetActive(true);
 
         HomeBGAlpha = HomeBG.GetComponent<CanvasGroup>();
         MonocromeBGAlpha = MonocromeBG.GetComponent<CanvasGroup>();
         SignInUpAlpha = SignInUp.GetComponent<CanvasGroup>();
+        ScrollViewChatAlpha = ScrollViewChat.GetComponent<CanvasGroup>();
         ScrollViewAlpha = ScrollView.GetComponent<CanvasGroup>();
 
         CalendarContentAlpha = CalendarContent.GetComponent<CanvasGroup>();
@@ -54,7 +57,7 @@ public class UIManager : MonoBehaviour
         ProfileContentAlpha = ProfileContent.GetComponent<CanvasGroup>();
 
         CalendarSceneBool = true;
-    }
+    }   
 
     public void Start()
     {
@@ -101,6 +104,7 @@ public class UIManager : MonoBehaviour
     {
         HomeBG.SetActive(false);
         
+        DOTween.To(() => ScrollViewChatAlpha.alpha, x => ScrollViewChatAlpha.alpha = x, 1, 0.2f).SetEase(Ease.InQuad);
         DOTween.To(() => ScrollViewAlpha.alpha, x => ScrollViewAlpha.alpha = x, 1, 0.2f).SetEase(Ease.InQuad);
     }
 
@@ -110,7 +114,7 @@ public class UIManager : MonoBehaviour
         //HomeBGAlpha.alpha = 1;
         //SignInUpAlpha.alpha = 1;
 
-        //ScrollViewAlpha.alpha = 1;
+        //ScrollViewChatAlpha.alpha = 1;
 
         CalendarContentAlpha.alpha = 1;
         ManagerContentAlpha.alpha = 1;
@@ -129,7 +133,7 @@ public class UIManager : MonoBehaviour
             DOTween.To(() => MonocromeBGAlpha.alpha, x => MonocromeBGAlpha.alpha = x, 0, 0.2f).SetEase(Ease.InQuad);
 
             SignInUpAlpha.alpha = 0;
-            //ScrollViewAlpha.alpha = 0;
+            //ScrollViewChatAlpha.alpha = 0;
             CalendarContentAlpha.alpha = 0;
             ManagerContentAlpha.alpha = 0;
             TeamContentAlpha.alpha = 0;

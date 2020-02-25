@@ -25,11 +25,11 @@ public class UIManagerTItle : MonoBehaviour
     //pos
     public GameObject OffScreenTopLeft;
     public GameObject OnScreenTopLeft;
+    public GameObject OnScreenTopLeftChat;
 
     //scrolling
     public GameObject ScrollView;
     private float ScrollWait;
-
 
     void Awake()
     {
@@ -53,8 +53,7 @@ public class UIManagerTItle : MonoBehaviour
         mySecondSequence.PrependInterval(1f)
           .Append(Welcome.transform.DOMoveY(OnScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InBack))
           .Join(UserIcon.transform.DOMoveY(OnScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InBack))
-          .Join(Alfred.transform.DOMoveY((OnScreenTopLeft.transform.position.y - 260), AnimSpeed).SetEase(Ease.InBack));
-          //.Join(DOTween.To(() => AlfredAlpha.alpha, x => AlfredAlpha.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuad));
+          .Join(Alfred.transform.DOMoveY((OnScreenTopLeftChat.transform.position.y), AnimSpeed).SetEase(Ease.InBack));
     }
 
     public void ZoomindText()
