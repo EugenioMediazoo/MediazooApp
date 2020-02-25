@@ -22,8 +22,8 @@ public class UIManager : MonoBehaviour
     private CanvasGroup MonocromeBGAlpha;
     public GameObject SignInUp;
     private CanvasGroup SignInUpAlpha;
-    //public GameObject ScrollView;
-    //private CanvasGroup ScrollViewAlpha;
+    public GameObject ScrollView;
+    private CanvasGroup ScrollViewAlpha;
 
     public GameObject CalendarContent;
     private CanvasGroup CalendarContentAlpha;
@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
         HomeBGAlpha = HomeBG.GetComponent<CanvasGroup>();
         MonocromeBGAlpha = MonocromeBG.GetComponent<CanvasGroup>();
         SignInUpAlpha = SignInUp.GetComponent<CanvasGroup>();
-        //ScrollViewAlpha = ScrollView.GetComponent<CanvasGroup>();
+        ScrollViewAlpha = ScrollView.GetComponent<CanvasGroup>();
 
         CalendarContentAlpha = CalendarContent.GetComponent<CanvasGroup>();
         ManagerContentAlpha = ManagerContent.GetComponent<CanvasGroup>();
@@ -89,8 +89,19 @@ public class UIManager : MonoBehaviour
 
         Sequence mySequence = DOTween.Sequence();
         mySequence.Append(LoadingCircle.transform.DOScale(new Vector3(30, 30, 30), 0.8f).SetEase(Ease.InQuad))
-            //.Join(DOTween.To(() => HomeBGAlpha.alpha, x => HomeBGAlpha.alpha = x, 0, 0.2f).SetEase(Ease.InQuad))
             .Join(DOTween.To(() => SignInUpAlpha.alpha, x => SignInUpAlpha.alpha = x, 0, 0.2f).SetEase(Ease.InQuad));
+
+        SignInUp.SetActive(false);
+        Invoke("HomeBGOnOff", 1f);
+
+
+    }
+
+    void HomeBGOnOff()
+    {
+        HomeBG.SetActive(false);
+        
+        DOTween.To(() => ScrollViewAlpha.alpha, x => ScrollViewAlpha.alpha = x, 1, 0.2f).SetEase(Ease.InQuad);
     }
 
     IEnumerator FadeInNotSphereScene()

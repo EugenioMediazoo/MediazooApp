@@ -30,6 +30,8 @@ public class UIManagerDockBar : MonoBehaviour
 
     public void Awake()
     {
+        CalendarContent.transform.DOMoveX(OffScreenRight.transform.position.x, 0);
+
         TeamConent.transform.DOMoveX(OffScreenRight.transform.position.x, 0);
         ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, 0);
         ManagerConent.transform.DOMoveX(OffScreenRight.transform.position.x, 0);

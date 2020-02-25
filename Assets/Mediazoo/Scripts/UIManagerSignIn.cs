@@ -36,9 +36,17 @@ public class UIManagerSignIn : MonoBehaviour
     //    o++;
     //}
 
+    //public void Ready()
+    //{
+    //    Invoke("starter", 0);
+    //    Invoke("typing", 0);
+    //}
+
     public void starter()
     {
         SignIn.SetActive(true);
+        Invoke("typing", 0);
+
         StartCoroutine(MyFunctions());
     }
 
