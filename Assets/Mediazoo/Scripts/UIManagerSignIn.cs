@@ -108,11 +108,13 @@ public class UIManagerSignIn : MonoBehaviour
 
     IEnumerator InvokeManagerMethods()
     {
-        yield return new WaitForSeconds(AnimSpeed * 2);
+        yield return new WaitForSeconds(AnimSpeed * 3);
 
         uiManagerTItle.ZoomindText();
         uiManagerDockBar.CalendarCanvas();
+        uiManagerDockBar.ShowDockBar();
         uiManager.BotOnOff();
+
     }
 
     public void OptionTwo()

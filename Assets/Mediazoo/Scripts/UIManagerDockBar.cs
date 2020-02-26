@@ -29,6 +29,9 @@ public class UIManagerDockBar : MonoBehaviour
     public GameObject ScrollView;
     private float ScrollWait;
 
+    //dockbar
+    public GameObject DockBar;
+
     public void Awake()
     {
         CalendarContent.transform.DOMoveX(OffScreenRight.transform.position.x, 0);
@@ -49,6 +52,11 @@ public class UIManagerDockBar : MonoBehaviour
           .Join(ManagerConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
           .Join(TeamConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
           .Join(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+    }
+
+    public void ShowDockBar()
+    {
+        DockBar.transform.DOMoveY(0, AnimSpeed).SetEase(Ease.InOutCubic);
     }
 
     public void CalendarCanvas()
