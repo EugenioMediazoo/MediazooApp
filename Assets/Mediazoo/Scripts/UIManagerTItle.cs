@@ -17,6 +17,7 @@ public class UIManagerTItle : MonoBehaviour
     public GameObject Welcome;
     private CanvasGroup WelcomeAlpha;
     public GameObject UserIcon;
+    public Image UserIconImg;
     public GameObject Zoomind;
     public GameObject Viewer360;
     public GameObject Manager;
@@ -125,6 +126,9 @@ public class UIManagerTItle : MonoBehaviour
 
     public void ProfileText()
     {
+        UserIconImg.transform.DOLocalRotate(new Vector3(0,0,2160), AnimSpeed, RotateMode.FastBeyond360).SetEase(Ease.InOutCubic);
+
+
         Sequence mySequence = DOTween.Sequence();
         mySequence.PrependInterval(ScrollWait)
           .Append(Zoomind.transform.DOMoveY(OffScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InOutCubic))
