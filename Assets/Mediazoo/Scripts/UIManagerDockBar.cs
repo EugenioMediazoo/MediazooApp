@@ -19,6 +19,7 @@ public class UIManagerDockBar : MonoBehaviour
     public GameObject OffScreenRight;
 
     //screens
+    public GameObject SignInChatContent;
     public GameObject CalendarContent;
     public GameObject ManagerConent;
     public GameObject TeamConent;
@@ -37,6 +38,17 @@ public class UIManagerDockBar : MonoBehaviour
         ManagerConent.transform.DOMoveX(OffScreenRight.transform.position.x, 0);
 
         ScrollWait = ScrollView.GetComponent<AutoScroll>().ScrollSpeed;
+    }
+
+    public void SignInCanvas()
+    {
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.PrependInterval(ScrollWait)
+          .Append(SignInChatContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+          .Join(CalendarContent.transform.DOMoveX(ScreenCenter.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+          .Join(ManagerConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+          .Join(TeamConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+          .Join(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
     }
 
     public void CalendarCanvas()

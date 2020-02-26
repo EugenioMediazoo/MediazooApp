@@ -15,6 +15,10 @@ public class UIManager : MonoBehaviour
     public Button CalendarButton;
     private bool CalendarSceneBool;
 
+    //time var
+    [Range(0f, 10f)]
+    public float SceneFadeingSpeed = 0.2f;
+
     //BGCanvas
     public GameObject HomeBG;
     private CanvasGroup HomeBGAlpha;
@@ -37,6 +41,10 @@ public class UIManager : MonoBehaviour
     private CanvasGroup ProfileContentAlpha;
 
     public GameObject ReminderMessages;
+
+    //time var
+    [Range(0f, 10f)]
+    public float AnimSpeed = 0.6f;
 
     public GameObject LoadingCircle;
 
@@ -70,12 +78,36 @@ public class UIManager : MonoBehaviour
         //    CalendarButton.Select();
     }
 
+    public void SignInUpCanvas()
+    {
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(LoadingCircle.transform.DOScale(new Vector3(30, 30, 30), AnimSpeed).SetEase(Ease.InQuad))
+            .Join(DOTween.To(() => SignInUpAlpha.alpha, x => SignInUpAlpha.alpha = x, 0, SceneFadeingSpeed).SetEase(Ease.InQuad));
+
+        SignInUp.SetActive(false);
+        Invoke("HomeBGOnOff", (AnimSpeed+ SceneFadeingSpeed));
+    }
+
+    void HomeBGOnOff()
+    {
+        HomeBG.SetActive(false);
+
+        DOTween.To(() => ScrollViewChatAlpha.alpha, x => ScrollViewChatAlpha.alpha = x, 1, SceneFadeingSpeed).SetEase(Ease.InQuad);
+        DOTween.To(() => ScrollViewAlpha.alpha, x => ScrollViewAlpha.alpha = x, 1, SceneFadeingSpeed).SetEase(Ease.InQuad);
+    }
+
+    public void BotOnOff()
+    {
+        SignInUp.SetActive(false);
+        ScrollViewChat.SetActive(false);
+    }
+
     public void NotSphereScene()
     {
         if (!CalendarSceneBool)
         {
             //SceneManager.LoadScene(Onboarding, LoadSceneMode.Single);
-            DOTween.To(() => MonocromeBGAlpha.alpha, x => MonocromeBGAlpha.alpha = x, 1, 0.2f).SetEase(Ease.InQuad);
+            DOTween.To(() => MonocromeBGAlpha.alpha, x => MonocromeBGAlpha.alpha = x, 1, SceneFadeingSpeed).SetEase(Ease.InQuad);
             StartCoroutine(FadeInNotSphereScene());
 
             CalendarSceneBool =! CalendarSceneBool;
@@ -84,33 +116,9 @@ public class UIManager : MonoBehaviour
             return;
     }
 
-    public void SignInUpCanvas()
-    {
-        //StartCoroutine(FadeInNotSphereScene());
-
-        //MonocromeBGAlpha.alpha = 1;
-
-        Sequence mySequence = DOTween.Sequence();
-        mySequence.Append(LoadingCircle.transform.DOScale(new Vector3(30, 30, 30), 0.8f).SetEase(Ease.InQuad))
-            .Join(DOTween.To(() => SignInUpAlpha.alpha, x => SignInUpAlpha.alpha = x, 0, 0.2f).SetEase(Ease.InQuad));
-
-        SignInUp.SetActive(false);
-        Invoke("HomeBGOnOff", 1f);
-
-
-    }
-
-    void HomeBGOnOff()
-    {
-        HomeBG.SetActive(false);
-        
-        DOTween.To(() => ScrollViewChatAlpha.alpha, x => ScrollViewChatAlpha.alpha = x, 1, 0.2f).SetEase(Ease.InQuad);
-        DOTween.To(() => ScrollViewAlpha.alpha, x => ScrollViewAlpha.alpha = x, 1, 0.2f).SetEase(Ease.InQuad);
-    }
-
     IEnumerator FadeInNotSphereScene()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(SceneFadeingSpeed);
         //HomeBGAlpha.alpha = 1;
         //SignInUpAlpha.alpha = 1;
 
@@ -130,7 +138,7 @@ public class UIManager : MonoBehaviour
             HomeBGAlpha.alpha = 0;
             //MonocromeBGAlpha.alpha = 0;
 
-            DOTween.To(() => MonocromeBGAlpha.alpha, x => MonocromeBGAlpha.alpha = x, 0, 0.2f).SetEase(Ease.InQuad);
+            DOTween.To(() => MonocromeBGAlpha.alpha, x => MonocromeBGAlpha.alpha = x, 0, SceneFadeingSpeed).SetEase(Ease.InQuad);
 
             SignInUpAlpha.alpha = 0;
             //ScrollViewChatAlpha.alpha = 0;

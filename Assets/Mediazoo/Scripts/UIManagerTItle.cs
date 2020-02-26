@@ -6,12 +6,16 @@ using DG.Tweening;
 
 public class UIManagerTItle : MonoBehaviour
 {
+    //time var Import
+    public UIManager uiManager;
+
     //time var
     [Range(0f, 10f)]
     public float AnimSpeed;
 
     //var
     public GameObject Welcome;
+    private CanvasGroup WelcomeAlpha;
     public GameObject UserIcon;
     public GameObject Zoomind;
     public GameObject Viewer360;
@@ -34,6 +38,7 @@ public class UIManagerTItle : MonoBehaviour
     void Awake()
     {
         Welcome.transform.DOMoveY(OffScreenTopLeft.transform.position.y, 0);
+        WelcomeAlpha = Welcome.GetComponent<CanvasGroup>();
         UserIcon.transform.DOMoveY(OffScreenTopLeft.transform.position.y, 0);
         Zoomind.transform.DOMoveY(OffScreenTopLeft.transform.position.y, 0);
         Viewer360.transform.DOMoveY(OffScreenTopLeft.transform.position.y, 0);
@@ -49,11 +54,14 @@ public class UIManagerTItle : MonoBehaviour
 
     public void WelcomeText()
     {
+        WelcomeAlpha.alpha = 1;
+        AlfredAlpha.alpha = 1;
+
         Sequence mySecondSequence = DOTween.Sequence();
-        mySecondSequence.PrependInterval(1f)
+        mySecondSequence.PrependInterval(uiManager.SceneFadeingSpeed + uiManager.AnimSpeed)
           .Append(Welcome.transform.DOMoveY(OnScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InBack))
           .Join(UserIcon.transform.DOMoveY(OnScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InBack))
-          .Join(Alfred.transform.DOMoveY((OnScreenTopLeftChat.transform.position.y), AnimSpeed).SetEase(Ease.InBack));
+          .Join(Alfred.transform.DOMoveY(OnScreenTopLeftChat.transform.position.y, AnimSpeed).SetEase(Ease.InBack));
     }
 
     public void ZoomindText()
