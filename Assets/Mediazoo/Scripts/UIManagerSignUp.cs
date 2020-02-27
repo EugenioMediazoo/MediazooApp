@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System;
 
-public class UIManagerSignIn : MonoBehaviour
+public class UIManagerSignUp: MonoBehaviour
 {
     //managers scripts
     public UIManager uiManager; /*this is both used for time and methods*/
@@ -21,7 +21,7 @@ public class UIManagerSignIn : MonoBehaviour
     public float AnimSpeedDots = 0.2f;
 
     //Sign in main button
-    public GameObject SignIn;
+    public GameObject SignUp;
 
     //gameobjects automated chats
     public GameObject[] chats;
@@ -50,25 +50,31 @@ public class UIManagerSignIn : MonoBehaviour
 
     void starter()
     {
-        SignIn.SetActive(true);
-        
-        StartCoroutine(MyFunctions());
+        SignUp.SetActive(true);
+        StartCoroutine(FirstCP());
     }
 
-    IEnumerator MyFunctions()
+    IEnumerator FirstCP()
     {
-        yield return new WaitForSeconds(AnimSpeed*2);
+        yield return new WaitForSeconds(AnimSpeed * 2);
 
-        if (o < chats.Length)
+        //if (o == 3)
+        //{
+        //    chats[3].SetActive(true);
+
+        //    chatCG = chats[3].GetComponent<CanvasGroup>();
+        //    DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart).OnComplete(starter);
+
+        //    o++;
+        //}
+        //else 
+        
+        if (o < 3)
         {
             chats[o].SetActive(true);
-            //Debug.Log(chats[o].name);
 
             chatCG = chats[o].GetComponent<CanvasGroup>();
-
-            //Debug.Log("Before" + chatCG.name + "alpha " + chatCG.alpha);
             DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart).OnComplete(starter);
-            //Debug.Log("After" + chatCG.name + "alpha " +  chatCG.alpha);
 
             o++;
         }
@@ -81,6 +87,30 @@ public class UIManagerSignIn : MonoBehaviour
             DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
             yield break;
         }
+    }
+
+    IEnumerator SecondCP()
+    {
+        yield return new WaitForSeconds(AnimSpeed*2);
+
+        if (o == 3)
+        {
+            chats[3].SetActive(true);
+
+            chatCG = chats[3].GetComponent<CanvasGroup>();
+            DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart).OnComplete(starter);
+
+            o++;
+        }
+        else
+        {
+            Typing.SetActive(false);
+
+            OptionContainer.SetActive(true);
+            OptionContainerCG = OptionContainer.GetComponent<CanvasGroup>();
+            DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
+        }
+        yield break;
     }
 
     public void typing()
@@ -100,11 +130,27 @@ public class UIManagerSignIn : MonoBehaviour
 
         AnswerOneCG = AnswerOne.GetComponent<CanvasGroup>();
         Sequence mySequence = DOTween.Sequence();
-        mySequence.Append(DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 0, AnimSpeed/2).SetEase(Ease.InQuart))
+        mySequence.Append(DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 0, AnimSpeed / 2).SetEase(Ease.InQuart))
             .Append(DOTween.To(() => AnswerOneCG.alpha, x => AnswerOneCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart));
 
-        StartCoroutine(InvokeManagerMethods());
+        StartCoroutine(SecondCP());
+        Invoke("typing", AnimSpeed*2);
     }
+
+    public void OptionTwo()
+    {
+        AnswerTwo.SetActive(true);
+
+        AnswerTwoCG = AnswerTwo.GetComponent<CanvasGroup>();
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 0, AnimSpeed / 2).SetEase(Ease.InQuart))
+            .Append(DOTween.To(() => AnswerTwoCG.alpha, x => AnswerTwoCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart));
+
+        StartCoroutine(SecondCP());
+        Invoke("typing", AnimSpeed);
+    }
+
+    // StartCoroutine(InvokeManagerMethods());
 
     //conversation finished
     IEnumerator InvokeManagerMethods()
@@ -116,15 +162,5 @@ public class UIManagerSignIn : MonoBehaviour
         uiManagerDockBar.ShowDockBar();
         uiManager.BotOnOff();
 
-    }
-
-    public void OptionTwo()
-    {
-        AnswerTwo.SetActive(true);
-
-        AnswerTwoCG = AnswerTwo.GetComponent<CanvasGroup>();
-        Sequence mySequence = DOTween.Sequence();
-        mySequence.Append(DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 0, AnimSpeed/2).SetEase(Ease.InQuart))
-            .Append(DOTween.To(() => AnswerTwoCG.alpha, x => AnswerTwoCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart));
     }
 }
