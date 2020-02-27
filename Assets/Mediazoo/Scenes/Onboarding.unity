@@ -11005,7 +11005,7 @@ GameObject:
   - component: {fileID: 289880698}
   m_Layer: 5
   m_Name: Q2
-  m_TagString: Untagged
+  m_TagString: SignUpBubbles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16684,6 +16684,7 @@ MonoBehaviour:
   OptionContainer: {fileID: 2140280187}
   InputContainerOne: {fileID: 743445369}
   InputContainerTwo: {fileID: 2070289121}
+  SignUpBubbles: []
 --- !u!1 &451604640
 GameObject:
   m_ObjectHideFlags: 0
@@ -20922,7 +20923,7 @@ GameObject:
   - component: {fileID: 574026745}
   m_Layer: 5
   m_Name: Q7
-  m_TagString: Untagged
+  m_TagString: SignUpBubbles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26519,7 +26520,7 @@ GameObject:
   - component: {fileID: 743445371}
   m_Layer: 5
   m_Name: I1 (few errors can retype)
-  m_TagString: Untagged
+  m_TagString: SignUpBubbles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28441,7 +28442,7 @@ GameObject:
   - component: {fileID: 815127941}
   m_Layer: 5
   m_Name: Q5
-  m_TagString: Untagged
+  m_TagString: SignUpBubbles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33062,7 +33063,7 @@ GameObject:
   - component: {fileID: 924830968}
   m_Layer: 5
   m_Name: Q4
-  m_TagString: Untagged
+  m_TagString: SignUpBubbles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34166,7 +34167,7 @@ GameObject:
   - component: {fileID: 958647794}
   m_Layer: 5
   m_Name: I1 No errors text squashed cannot retype
-  m_TagString: Untagged
+  m_TagString: SignUpBubbles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38542,7 +38543,7 @@ GameObject:
   - component: {fileID: 1076620271}
   m_Layer: 5
   m_Name: Q3
-  m_TagString: Untagged
+  m_TagString: SignUpBubbles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50997,7 +50998,7 @@ GameObject:
   - component: {fileID: 1506936181}
   m_Layer: 5
   m_Name: Q6
-  m_TagString: Untagged
+  m_TagString: SignUpBubbles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52581,7 +52582,7 @@ GameObject:
   - component: {fileID: 1596632837}
   m_Layer: 5
   m_Name: A1
-  m_TagString: Untagged
+  m_TagString: SignUpBubbles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60296,6 +60297,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 451523601}
+        m_MethodName: Ready
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1859245065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62757,7 +62769,7 @@ GameObject:
   - component: {fileID: 1931019062}
   m_Layer: 5
   m_Name: Q1
-  m_TagString: Untagged
+  m_TagString: SignUpBubbles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64934,7 +64946,7 @@ GameObject:
   - component: {fileID: 1995515863}
   m_Layer: 5
   m_Name: Q8
-  m_TagString: Untagged
+  m_TagString: SignUpBubbles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65942,7 +65954,7 @@ GameObject:
   - component: {fileID: 2043174632}
   m_Layer: 5
   m_Name: A2
-  m_TagString: Untagged
+  m_TagString: SignUpBubbles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67341,7 +67353,7 @@ GameObject:
   - component: {fileID: 2070289123}
   m_Layer: 5
   m_Name: I2 (few errors can retype)
-  m_TagString: Untagged
+  m_TagString: SignUpBubbles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70675,8 +70687,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 971.0526, y: 0}
-  m_SizeDelta: {x: 1782.1052, y: 430}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 430}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2146415189
 MonoBehaviour:

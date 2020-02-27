@@ -66,7 +66,7 @@ public class UIManagerSignIn : MonoBehaviour
             SignInBubbles = GameObject.FindGameObjectsWithTag("SignInBubbles");
         else if(playAgain>0)
         {
-            //SignInBubbles = GameObject.FindGameObjectsWithTag("SignInBubbles");
+            SignInBubbles = GameObject.FindGameObjectsWithTag("SignInBubbles");
 
             foreach (GameObject SignInBubble in SignInBubbles)
             {
