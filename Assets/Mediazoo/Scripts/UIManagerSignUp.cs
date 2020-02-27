@@ -50,6 +50,20 @@ public class UIManagerSignUp: MonoBehaviour
     public GameObject InputContainerTwo;
     private CanvasGroup InputContainerTwoCG;
 
+    //restartmethod
+    public GameObject[] SignUpBubbles;
+
+    void Awake()
+    {
+        if (SignUpBubbles == null)
+            SignUpBubbles = GameObject.FindGameObjectsWithTag("SignUpBubbles");
+
+        foreach (GameObject SignUpBubble in SignUpBubbles)
+        {
+            SignUpBubble.SetActive(false);
+            SignUpBubble.GetComponent<CanvasGroup>().alpha = 0;
+        }
+    }
 
     public void Ready()
     {

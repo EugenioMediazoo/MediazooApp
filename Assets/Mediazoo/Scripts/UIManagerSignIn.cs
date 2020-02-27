@@ -42,6 +42,42 @@ public class UIManagerSignIn : MonoBehaviour
     public GameObject OptionContainer;
     private CanvasGroup OptionContainerCG;
 
+    //restartmethod
+    public GameObject[] SignInBubbles;
+    private int playAgain=0;
+
+    void Awake()
+    {
+        if (SignInBubbles == null)
+            SignInBubbles = GameObject.FindGameObjectsWithTag("SignInBubbles");
+
+        foreach (GameObject SignInBubble in SignInBubbles)
+        {
+            SignInBubble.SetActive(false);
+            SignInBubble.GetComponent<CanvasGroup>().alpha = 0;
+        }
+
+        playAgain++;
+    }
+
+    public void Replay()
+    {
+        if (SignInBubbles == null)
+            SignInBubbles = GameObject.FindGameObjectsWithTag("SignInBubbles");
+        else if(playAgain>0)
+        {
+            //SignInBubbles = GameObject.FindGameObjectsWithTag("SignInBubbles");
+
+            foreach (GameObject SignInBubble in SignInBubbles)
+            {
+                SignInBubble.SetActive(false);
+                SignInBubble.GetComponent<CanvasGroup>().alpha = 0;
+            }
+        }
+
+        playAgain++;
+    }
+
     public void Ready()
     {
         Invoke("starter", (uiManager.SceneFadeingSpeed + (uiManager.AnimSpeed * 4)));
