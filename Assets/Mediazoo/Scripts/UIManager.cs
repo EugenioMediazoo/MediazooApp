@@ -85,15 +85,35 @@ public class UIManager : MonoBehaviour
             .Join(DOTween.To(() => SignInUpAlpha.alpha, x => SignInUpAlpha.alpha = x, 0, SceneFadeingSpeed).SetEase(Ease.InQuad));
 
         SignInUp.SetActive(false);
-        Invoke("HomeBGOnOff", (AnimSpeed+ SceneFadeingSpeed));
+        Invoke("HomeBGOn", (AnimSpeed+ SceneFadeingSpeed));
     }
 
-    void HomeBGOnOff()
+    public void RestartSignInUpCanvas()
+    {
+        SignInUpAlpha.alpha = 1;
+
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(LoadingCircle.transform.DOScale(new Vector3(0, 0, 0), AnimSpeed).SetEase(Ease.InQuad))
+            .Join(DOTween.To(() => SignInUpAlpha.alpha, x => SignInUpAlpha.alpha = x, 0, SceneFadeingSpeed).SetEase(Ease.InQuad));
+
+        SignInUp.SetActive(true);
+        Invoke("HomeBGOff", (AnimSpeed + SceneFadeingSpeed));
+    }
+
+    void HomeBGOn()
     {
         HomeBG.SetActive(false);
 
         DOTween.To(() => ScrollViewChatAlpha.alpha, x => ScrollViewChatAlpha.alpha = x, 1, SceneFadeingSpeed).SetEase(Ease.InQuad);
         DOTween.To(() => ScrollViewAlpha.alpha, x => ScrollViewAlpha.alpha = x, 1, SceneFadeingSpeed).SetEase(Ease.InQuad);
+    }
+
+    void HomeBGOff()
+    {
+        HomeBG.SetActive(true);
+
+        DOTween.To(() => ScrollViewChatAlpha.alpha, x => ScrollViewChatAlpha.alpha = x, 0, SceneFadeingSpeed).SetEase(Ease.InQuad);
+        DOTween.To(() => ScrollViewAlpha.alpha, x => ScrollViewAlpha.alpha = x, 0, SceneFadeingSpeed).SetEase(Ease.InQuad);
     }
 
     public void BotOnOff()

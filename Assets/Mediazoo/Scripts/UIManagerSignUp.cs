@@ -46,6 +46,10 @@ public class UIManagerSignUp: MonoBehaviour
     public GameObject InputContainerOne;
     private CanvasGroup InputContainerOneCG;
 
+    //inputfields
+    public GameObject InputContainerTwo;
+    private CanvasGroup InputContainerTwoCG;
+
 
     public void Ready()
     {
@@ -60,23 +64,12 @@ public class UIManagerSignUp: MonoBehaviour
         StartCoroutine(FirstCP());
     }
 
-    void repeatFirst()
-    {
-        StartCoroutine(FirstCP());
-    }
-
-    void repeatSecond()
-    {
-        StartCoroutine(SecondCP());
-    }
-
     IEnumerator FirstCP()
     {
         WaitForSeconds wait =  new WaitForSeconds(AnimSpeed * 2);
         
         for(o=0; o <3; o++)
         {
-            Debug.Log("Count");
             yield return wait;
 
             chats[o].SetActive(true);
@@ -94,21 +87,17 @@ public class UIManagerSignUp: MonoBehaviour
         DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
     }
 
-
     IEnumerator SecondCP()
     {
-        Debug.Log("SecondCP");
-
         WaitForSeconds wait = new WaitForSeconds(AnimSpeed * 2);
 
         for (o = 3; o < 4; o++)
         {
-            Debug.Log("Count");
             yield return wait;
 
-            chats[3].SetActive(true);
+            chats[o].SetActive(true);
 
-            chatCG = chats[3].GetComponent<CanvasGroup>();
+            chatCG = chats[o].GetComponent<CanvasGroup>();
             DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
         }
 
@@ -119,6 +108,62 @@ public class UIManagerSignUp: MonoBehaviour
         InputContainerOne.SetActive(true);
         InputContainerOneCG = InputContainerOne.GetComponent<CanvasGroup>();
         DOTween.To(() => InputContainerOneCG.alpha, x => InputContainerOneCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
+    }
+
+    IEnumerator ThirdCP()
+    {
+        WaitForSeconds wait = new WaitForSeconds(AnimSpeed * 2);
+
+        for (o = 4; o < 6; o++)
+        {
+
+            yield return wait;
+
+            chats[o].SetActive(true);
+
+            chatCG = chats[o].GetComponent<CanvasGroup>();
+            DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
+        }
+
+        yield return wait;
+
+        Typing.SetActive(false);
+
+        InputContainerTwo.SetActive(true);
+        InputContainerTwoCG = InputContainerTwo.GetComponent<CanvasGroup>();
+        DOTween.To(() => InputContainerTwoCG.alpha, x => InputContainerTwoCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
+    }
+
+    IEnumerator FourthCP()
+    {
+        WaitForSeconds wait = new WaitForSeconds(AnimSpeed * 2);
+
+        for (o = 6; o < 8; o++)
+        {
+            yield return wait;
+
+            chats[o].SetActive(true);
+
+            chatCG = chats[o].GetComponent<CanvasGroup>();
+            DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
+        }
+
+        yield return wait;
+
+        Typing.SetActive(false);
+
+        StartCoroutine(InvokeManagerMethods());
+    }
+
+    //conversation finished
+    IEnumerator InvokeManagerMethods()
+    {
+        yield return new WaitForSeconds(AnimSpeed * 3);
+
+        uiManagerTItle.ZoomindText();
+        uiManagerDockBar.CalendarCanvas();
+        uiManagerDockBar.ShowDockBar();
+        uiManager.BotOnOff();
     }
 
     public void typing()
@@ -158,17 +203,15 @@ public class UIManagerSignUp: MonoBehaviour
         Invoke("typing", AnimSpeed);
     }
 
-    // StartCoroutine(InvokeManagerMethods());
-
-    //conversation finished
-    IEnumerator InvokeManagerMethods()
+    public void InputOne()
     {
-        yield return new WaitForSeconds(AnimSpeed * 3);
+        StartCoroutine(ThirdCP());
+        Invoke("typing", AnimSpeed);
+    }
 
-        uiManagerTItle.ZoomindText();
-        uiManagerDockBar.CalendarCanvas();
-        uiManagerDockBar.ShowDockBar();
-        uiManager.BotOnOff();
-
+    public void InputTwo()
+    {
+        StartCoroutine(FourthCP());
+        Invoke("typing", AnimSpeed);
     }
 }
