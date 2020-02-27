@@ -42,6 +42,11 @@ public class UIManagerSignUp: MonoBehaviour
     public GameObject OptionContainer;
     private CanvasGroup OptionContainerCG;
 
+    //inputfields
+    public GameObject InputContainerOne;
+    private CanvasGroup InputContainerOneCG;
+
+
     public void Ready()
     {
         Invoke("starter", (uiManager.SceneFadeingSpeed + (uiManager.AnimSpeed * 4)));
@@ -50,67 +55,70 @@ public class UIManagerSignUp: MonoBehaviour
 
     void starter()
     {
-        SignUp.SetActive(true);
+        if(SignUp.activeSelf == false)
+            SignUp.SetActive(true);
         StartCoroutine(FirstCP());
+    }
+
+    void repeatFirst()
+    {
+        StartCoroutine(FirstCP());
+    }
+
+    void repeatSecond()
+    {
+        StartCoroutine(SecondCP());
     }
 
     IEnumerator FirstCP()
     {
-        yield return new WaitForSeconds(AnimSpeed * 2);
-
-        //if (o == 3)
-        //{
-        //    chats[3].SetActive(true);
-
-        //    chatCG = chats[3].GetComponent<CanvasGroup>();
-        //    DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart).OnComplete(starter);
-
-        //    o++;
-        //}
-        //else 
+        WaitForSeconds wait =  new WaitForSeconds(AnimSpeed * 2);
         
-        if (o < 3)
+        for(o=0; o <3; o++)
         {
+            Debug.Log("Count");
+            yield return wait;
+
             chats[o].SetActive(true);
 
             chatCG = chats[o].GetComponent<CanvasGroup>();
-            DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart).OnComplete(starter);
-
-            o++;
+            DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);           
         }
-        else
-        {
-            Typing.SetActive(false);
 
-            OptionContainer.SetActive(true);
-            OptionContainerCG = OptionContainer.GetComponent<CanvasGroup>();
-            DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
-            yield break;
-        }
+        yield return wait;
+
+        Typing.SetActive(false);
+
+        OptionContainer.SetActive(true);
+        OptionContainerCG = OptionContainer.GetComponent<CanvasGroup>();
+        DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
     }
+
 
     IEnumerator SecondCP()
     {
-        yield return new WaitForSeconds(AnimSpeed*2);
+        Debug.Log("SecondCP");
 
-        if (o == 3)
+        WaitForSeconds wait = new WaitForSeconds(AnimSpeed * 2);
+
+        for (o = 3; o < 4; o++)
         {
+            Debug.Log("Count");
+            yield return wait;
+
             chats[3].SetActive(true);
 
             chatCG = chats[3].GetComponent<CanvasGroup>();
-            DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart).OnComplete(starter);
-
-            o++;
+            DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
         }
-        else
-        {
-            Typing.SetActive(false);
 
-            OptionContainer.SetActive(true);
-            OptionContainerCG = OptionContainer.GetComponent<CanvasGroup>();
-            DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
-        }
-        yield break;
+        yield return wait;
+
+        Typing.SetActive(false);
+
+        InputContainerOne.SetActive(true);
+        InputContainerOneCG = InputContainerOne.GetComponent<CanvasGroup>();
+        DOTween.To(() => InputContainerOneCG.alpha, x => InputContainerOneCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
     }
 
     public void typing()
