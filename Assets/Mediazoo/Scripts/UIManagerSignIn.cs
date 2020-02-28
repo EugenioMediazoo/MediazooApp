@@ -41,10 +41,17 @@ public class UIManagerSignIn : MonoBehaviour
     //buttons options
     public GameObject OptionContainer;
     private CanvasGroup OptionContainerCG;
+    public GameObject OptionOneObj;
+    private CanvasGroup OptionOneCG;
+    public GameObject OptionTwoObj;
+    private CanvasGroup OptionTwoCG;
+
+    //Instrctions
+    public GameObject DockBarButton;
 
     //restartmethod
     public GameObject[] SignInBubbles;
-    private int playAgain=0;
+    public int playAgain=0;
 
     void Awake()
     {
@@ -64,7 +71,7 @@ public class UIManagerSignIn : MonoBehaviour
     {
         if (SignInBubbles == null)
             SignInBubbles = GameObject.FindGameObjectsWithTag("SignInBubbles");
-        else if(playAgain>0)
+        else if(playAgain>2)
         {
             SignInBubbles = GameObject.FindGameObjectsWithTag("SignInBubbles");
 
@@ -90,6 +97,7 @@ public class UIManagerSignIn : MonoBehaviour
         
         StartCoroutine(MyFunctions());
     }
+
     IEnumerator MyFunctions()
     {
         WaitForSeconds wait = new WaitForSeconds(AnimSpeed * 2);
@@ -109,37 +117,20 @@ public class UIManagerSignIn : MonoBehaviour
         Typing.SetActive(false);
 
         OptionContainer.SetActive(true);
+        if (playAgain > 2)
+        {
+            OptionOneObj.SetActive(true);
+            OptionOneCG = OptionOneObj.GetComponent<CanvasGroup>();
+            OptionOneCG.alpha = 1;
+
+            OptionTwoObj.SetActive(true);
+            OptionTwoCG = OptionTwoObj.GetComponent<CanvasGroup>();
+            OptionTwoCG.alpha = 1;
+        }
+
         OptionContainerCG = OptionContainer.GetComponent<CanvasGroup>();
         DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
     }
-
-    //IEnumerator MyFunctions()
-    //{
-    //    yield return new WaitForSeconds(AnimSpeed*2);
-
-    //    if (o < chats.Length)
-    //    {
-    //        chats[o].SetActive(true);
-    //        //Debug.Log(chats[o].name);
-
-    //        chatCG = chats[o].GetComponent<CanvasGroup>();
-
-    //        //Debug.Log("Before" + chatCG.name + "alpha " + chatCG.alpha);
-    //        DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart).OnComplete(starter);
-    //        //Debug.Log("After" + chatCG.name + "alpha " +  chatCG.alpha);
-
-    //        o++;
-    //    }
-    //    else
-    //    {
-    //        Typing.SetActive(false);
-
-    //        OptionContainer.SetActive(true);
-    //        OptionContainerCG = OptionContainer.GetComponent<CanvasGroup>();
-    //        DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
-    //        yield break;
-    //    }
-    //}
 
     public void typing()
     {
@@ -174,13 +165,14 @@ public class UIManagerSignIn : MonoBehaviour
         uiManagerDockBar.ShowDockBar();
         uiManager.BotOnOff();
 
+        DockBarButton.SetActive(true);
     }
 
     public void OptionTwo()
     {
         AnswerTwo.SetActive(true);
 
-        AnswerTwoCG = AnswerTwo.GetComponent<CanvasGroup>();
+    AnswerTwoCG = AnswerTwo.GetComponent<CanvasGroup>();
         Sequence mySequence = DOTween.Sequence();
         mySequence.Append(DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 0, AnimSpeed/2).SetEase(Ease.InQuart))
             .Append(DOTween.To(() => AnswerTwoCG.alpha, x => AnswerTwoCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart));
@@ -192,11 +184,8 @@ public class UIManagerSignIn : MonoBehaviour
     IEnumerator RestartManagerMethods()
     {
         yield return new WaitForSeconds(AnimSpeed * 3);
-
-        //uiManagerTItle.ZoomindText();
-        //uiManagerDockBar.CalendarCanvas();
-        //uiManagerDockBar.ShowDockBar();
         uiManager.RestartSignInUpCanvas();
 
+        Invoke("Replay", 0);
     }
 }

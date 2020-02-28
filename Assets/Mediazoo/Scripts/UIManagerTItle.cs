@@ -8,6 +8,7 @@ public class UIManagerTItle : MonoBehaviour
 {
     //time var Import
     public UIManager uiManager;
+    public UIManagerDockBar uiManagerDockBar;
 
     //time var
     [Range(0f, 10f)]
@@ -128,16 +129,21 @@ public class UIManagerTItle : MonoBehaviour
     {
         UserIconImg.transform.DOLocalRotate(new Vector3(0,0,2160), AnimSpeed, RotateMode.FastBeyond360).SetEase(Ease.InOutCubic);
 
+        if (uiManagerDockBar.CanvasRecord.Contains("CalendarCanvas") is true ||
+            uiManagerDockBar.CanvasRecord.Contains("ManagerCanvas") is true ||
+            uiManagerDockBar.CanvasRecord.Contains("TeamCanvas") is true ||
+            uiManagerDockBar.CanvasRecord.Contains("SphereCanvas") is true)
+        {
+            Sequence mySequence = DOTween.Sequence();
+            mySequence.PrependInterval(ScrollWait)
+              .Append(Zoomind.transform.DOMoveY(OffScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InOutCubic))
+              .Join(Viewer360.transform.DOMoveY(OffScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InOutCubic))
+              .Join(Team.transform.DOMoveY(OffScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InOutCubic))
+              .Join(Manager.transform.DOMoveY(OffScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InOutCubic));
 
-        Sequence mySequence = DOTween.Sequence();
-        mySequence.PrependInterval(ScrollWait)
-          .Append(Zoomind.transform.DOMoveY(OffScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InOutCubic))
-          .Join(Viewer360.transform.DOMoveY(OffScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InOutCubic))
-          .Join(Team.transform.DOMoveY(OffScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InOutCubic))
-          .Join(Manager.transform.DOMoveY(OffScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InOutCubic));
-
-        Sequence mySecondSequence = DOTween.Sequence();
-        mySecondSequence.PrependInterval(ScrollWait)
-          .Append(Profile.transform.DOMoveY(OnScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InBack));
+            Sequence mySecondSequence = DOTween.Sequence();
+            mySecondSequence.PrependInterval(ScrollWait)
+              .Append(Profile.transform.DOMoveY(OnScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InBack));
+        }
     }
 }

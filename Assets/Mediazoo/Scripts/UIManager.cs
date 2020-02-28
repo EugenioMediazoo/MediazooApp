@@ -11,6 +11,9 @@ public class UIManager : MonoBehaviour
     //public string Onboarding;
     //public string Office360;
 
+    //managers
+    public UIManagerDockBar uiManagerDockBar;
+
     //bar
     public Button CalendarButton;
     private bool CalendarSceneBool;
@@ -136,6 +139,8 @@ public class UIManager : MonoBehaviour
             return;
     }
 
+
+
     IEnumerator FadeInNotSphereScene()
     {
         yield return new WaitForSeconds(SceneFadeingSpeed);
@@ -154,6 +159,7 @@ public class UIManager : MonoBehaviour
     {
         if (CalendarSceneBool)
         {
+            uiManagerDockBar.CanvasRecord = "SphereCanvas";
             //SceneManager.LoadScene(Office360, LoadSceneMode.Single);
             HomeBGAlpha.alpha = 0;
             //MonocromeBGAlpha.alpha = 0;

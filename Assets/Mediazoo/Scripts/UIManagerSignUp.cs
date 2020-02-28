@@ -28,6 +28,10 @@ public class UIManagerSignUp: MonoBehaviour
     private CanvasGroup chatCG;
     private int o = 0;
 
+    //Instrctions
+    public GameObject ChatBotButton;
+    public GameObject DockBarButton;
+
     //typing dots
     public GameObject Typing;
     public CanvasGroup[] dotsCG;
@@ -93,6 +97,9 @@ public class UIManagerSignUp: MonoBehaviour
         }
 
         yield return wait;
+
+        if(o==3)
+            ChatBotButton.SetActive(true);
 
         Typing.SetActive(false);
 
@@ -178,6 +185,8 @@ public class UIManagerSignUp: MonoBehaviour
         uiManagerDockBar.CalendarCanvas();
         uiManagerDockBar.ShowDockBar();
         uiManager.BotOnOff();
+
+        DockBarButton.SetActive(true);
     }
 
     public void typing()

@@ -24,6 +24,12 @@ public class UIManagerDockBar : MonoBehaviour
     public GameObject ManagerConent;
     public GameObject TeamConent;
     public GameObject ProfileContent;
+    public Image UserIconImg;
+
+    //string
+    //[HideInInspector]
+    public string CanvasRecord;
+    private bool pressed = true;
 
     //scrolling
     public GameObject ScrollView;
@@ -43,16 +49,18 @@ public class UIManagerDockBar : MonoBehaviour
         ScrollWait = ScrollView.GetComponent<AutoScroll>().ScrollSpeed;
     }
 
-    public void SignInCanvas()
-    {
-        Sequence mySequence = DOTween.Sequence();
-        mySequence.PrependInterval(ScrollWait)
-          .Append(SignInChatContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-          .Join(CalendarContent.transform.DOMoveX(ScreenCenter.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-          .Join(ManagerConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-          .Join(TeamConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-          .Join(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
-    }
+    //public void SignInCanvas()
+    //{
+    //    Sequence mySequence = DOTween.Sequence();
+    //    mySequence.PrependInterval(ScrollWait)
+    //      .Append(SignInChatContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+    //      .Join(CalendarContent.transform.DOMoveX(ScreenCenter.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+    //      .Join(ManagerConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+    //      .Join(TeamConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+    //      .Join(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+
+    //    CanvasRecord = "CalendarCanvas";
+    //}
 
     public void ShowDockBar()
     {
@@ -61,6 +69,8 @@ public class UIManagerDockBar : MonoBehaviour
 
     public void CalendarCanvas()
     {
+        CanvasRecord = "CalendarCanvas";
+
         Sequence mySequence = DOTween.Sequence();
         mySequence.PrependInterval(ScrollWait)
           .Append(CalendarContent.transform.DOMoveX(ScreenCenter.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
@@ -71,6 +81,8 @@ public class UIManagerDockBar : MonoBehaviour
 
     public void ManagerCanvas()
     {
+        CanvasRecord = "ManagerCanvas";
+
         Sequence mySequence = DOTween.Sequence();
         mySequence.PrependInterval(ScrollWait)
           .Append(CalendarContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
@@ -81,6 +93,8 @@ public class UIManagerDockBar : MonoBehaviour
 
     public void TeamCanvas()
     {
+        CanvasRecord = "TeamCanvas";
+
         Sequence mySequence = DOTween.Sequence();
         mySequence.PrependInterval(ScrollWait)
           .Append(CalendarContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
@@ -91,12 +105,91 @@ public class UIManagerDockBar : MonoBehaviour
 
     public void ProfileCanvas()
     {
-        Sequence mySequence = DOTween.Sequence();
-        mySequence.PrependInterval(ScrollWait)
-          .Append(CalendarContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-          .Join(ManagerConent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-          .Join(TeamConent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-          .Join(ProfileContent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+        if (CanvasRecord == null)
+        {
+            UserIconImg.transform.DOLocalRotate(new Vector3(0, 0, 2160), AnimSpeed, RotateMode.FastBeyond360).SetEase(Ease.InOutCubic);
+        }
+        else
+        {
+
+            if (CanvasRecord.Contains("CalendarCanvas") is true && !pressed)
+            {
+                pressed = !pressed;
+
+                Sequence mySequence = DOTween.Sequence();
+                mySequence.PrependInterval(ScrollWait)
+                  .Append(CalendarContent.transform.DOMoveX(ScreenCenter.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+                  .Join(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+            }
+            else if (CanvasRecord.Contains("CalendarCanvas") is true && pressed)
+            {
+                pressed = !pressed;
+
+                Sequence mySequence = DOTween.Sequence();
+                mySequence.PrependInterval(ScrollWait)
+                  .Append(CalendarContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+                  .Join(ProfileContent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+            }
+
+            if (CanvasRecord.Contains("ManagerCanvas") is true && !pressed)
+            {
+                pressed = !pressed;
+
+                Sequence mySequence = DOTween.Sequence();
+                mySequence.PrependInterval(ScrollWait)
+                  .Append(ManagerConent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+                  .Join(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+            }
+            else if (CanvasRecord.Contains("ManagerCanvas") is true && pressed)
+            {
+                pressed = !pressed;
+
+                Sequence mySequence = DOTween.Sequence();
+                mySequence.PrependInterval(ScrollWait)
+                    .Append(ManagerConent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+                    .Join(ProfileContent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+            }
+
+
+            if (CanvasRecord.Contains("TeamCanvas") is true && !pressed)
+            {
+                pressed = !pressed;
+
+                Sequence mySequence = DOTween.Sequence();
+                mySequence.PrependInterval(ScrollWait)
+                    .Append(TeamConent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+                    .Join(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+            }
+            else if (CanvasRecord.Contains("TeamCanvas") is true && pressed)
+            {
+                pressed = !pressed;
+
+                Sequence mySequence = DOTween.Sequence();
+                mySequence.PrependInterval(ScrollWait)
+                    .Append(TeamConent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+                    .Join(ProfileContent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+            }
+
+            if (CanvasRecord.Contains("SphereCanvas") is true && !pressed)
+            {
+                pressed = !pressed;
+
+                Sequence mySequence = DOTween.Sequence();
+                mySequence.PrependInterval(ScrollWait)
+                    .Append(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+                    .Join(CalendarContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+            }
+            else if (CanvasRecord.Contains("SphereCanvas") is true && pressed)
+            {
+                pressed = !pressed;
+
+                Sequence mySequence = DOTween.Sequence();
+                mySequence.PrependInterval(ScrollWait)
+                    .Append(ProfileContent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+                    .Join(CalendarContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+            }
+        }
+
     }
 
 }
