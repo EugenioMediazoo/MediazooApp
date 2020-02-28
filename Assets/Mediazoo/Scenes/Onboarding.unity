@@ -16571,6 +16571,7 @@ MonoBehaviour:
   ProfileContent: {fileID: 2062507186}
   UserIconImg: {fileID: 6738420}
   CanvasRecord: 
+  pressed: 1
   ScrollView: {fileID: 426732266}
   DockBar: {fileID: 669371104}
 --- !u!114 &451523600

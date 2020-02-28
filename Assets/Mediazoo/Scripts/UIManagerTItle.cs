@@ -132,7 +132,7 @@ public class UIManagerTItle : MonoBehaviour
         if (uiManagerDockBar.CanvasRecord.Contains("CalendarCanvas") is true ||
             uiManagerDockBar.CanvasRecord.Contains("ManagerCanvas") is true ||
             uiManagerDockBar.CanvasRecord.Contains("TeamCanvas") is true ||
-            uiManagerDockBar.CanvasRecord.Contains("SphereCanvas") is true)
+            uiManagerDockBar.CanvasRecord.Contains("SphereCanvas") is true )
         {
             Sequence mySequence = DOTween.Sequence();
             mySequence.PrependInterval(ScrollWait)
