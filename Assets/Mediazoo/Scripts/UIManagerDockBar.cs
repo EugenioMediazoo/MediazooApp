@@ -7,6 +7,11 @@ using DG.Tweening;
 
 public class UIManagerDockBar : MonoBehaviour
 {
+
+    //managers
+    public UIManager uiManager;
+
+
     //time var
     [Range(0f, 10f)]
     public float AnimSpeed;
@@ -19,7 +24,6 @@ public class UIManagerDockBar : MonoBehaviour
     public GameObject OffScreenRight;
 
     //screens
-    public GameObject SignInChatContent;
     public GameObject CalendarContent;
     public GameObject ManagerConent;
     public GameObject TeamConent;
@@ -48,19 +52,6 @@ public class UIManagerDockBar : MonoBehaviour
 
         ScrollWait = ScrollView.GetComponent<AutoScroll>().ScrollSpeed;
     }
-
-    //public void SignInCanvas()
-    //{
-    //    Sequence mySequence = DOTween.Sequence();
-    //    mySequence.PrependInterval(ScrollWait)
-    //      .Append(SignInChatContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-    //      .Join(CalendarContent.transform.DOMoveX(ScreenCenter.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-    //      .Join(ManagerConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-    //      .Join(TeamConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-    //      .Join(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
-
-    //    CanvasRecord = "CalendarCanvas";
-    //}
 
     public void ShowDockBar()
     {
@@ -91,6 +82,8 @@ public class UIManagerDockBar : MonoBehaviour
           .Join(ManagerConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
           .Join(TeamConent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
           .Join(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+
+        uiManager.SphereScene();
     }
 
     public void ManagerCanvas()
@@ -147,13 +140,13 @@ public class UIManagerDockBar : MonoBehaviour
                   .Join(ProfileContent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
             }
 
-            if (CanvasRecord.Contains("SpehereCanvas") is true && !pressed)
+            if (CanvasRecord.Contains("ManagerCanvas") is true && !pressed)
             {
                 pressed = !pressed;
 
                 Sequence mySequence = DOTween.Sequence();
                 mySequence.PrependInterval(ScrollWait)
-                  //.Append(ManagerConent.transform.DOMoveX(OnScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
+                  .Append(ManagerConent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
                   .Join(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
             }
             else if (CanvasRecord.Contains("ManagerCanvas") is true && pressed)
@@ -189,28 +182,24 @@ public class UIManagerDockBar : MonoBehaviour
             if (CanvasRecord.Contains("SphereCanvas") is true && !pressed)
             {
                 pressed = !pressed;
-                Debug.Log("off" + pressed);
 
                 Sequence mySequence = DOTween.Sequence();
                 mySequence.PrependInterval(ScrollWait)
-                    .Append(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-                    .Join(CalendarContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-                    .Join(ManagerConent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-                    .Join(TeamConent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+                    .Append(ProfileContent.transform.DOMoveX(OffScreenRight.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+
+                uiManager.SphereScene();
             }
             else if (CanvasRecord.Contains("SphereCanvas") is true && pressed)
             {
                 pressed = !pressed;
 
-                Debug.Log("on" + pressed);
-
                 Sequence mySequence = DOTween.Sequence();
                 mySequence.PrependInterval(ScrollWait)
-                    .Append(ProfileContent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-                    .Join(CalendarContent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-                    .Join(ManagerConent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic))
-                    .Join(TeamConent.transform.DOMoveX(OffScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+                    .Append(ProfileContent.transform.DOMoveX(OnScreenLeft.transform.position.x, AnimSpeed).SetEase(Ease.InOutCubic));
+
+                uiManager.NotSphereScene();
             }
+
         }
 
     }

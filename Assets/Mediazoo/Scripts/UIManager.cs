@@ -16,7 +16,6 @@ public class UIManager : MonoBehaviour
 
     //bar
     public Button CalendarButton;
-    private bool CalendarSceneBool;
 
     //time var
     [Range(0f, 10f)]
@@ -67,7 +66,7 @@ public class UIManager : MonoBehaviour
         TeamContentAlpha = TeamContent.GetComponent<CanvasGroup>();
         ProfileContentAlpha = ProfileContent.GetComponent<CanvasGroup>();
 
-        CalendarSceneBool = true;
+       // CalendarSceneBool = true;
     }   
 
     public void Start()
@@ -127,42 +126,13 @@ public class UIManager : MonoBehaviour
 
     public void NotSphereScene()
     {
-        //if (!CalendarSceneBool)
-        //{
-            //SceneManager.LoadScene(Onboarding, LoadSceneMode.Single);
             DOTween.To(() => MonocromeBGAlpha.alpha, x => MonocromeBGAlpha.alpha = x, 1, SceneFadeingSpeed).SetEase(Ease.InQuad);
             StartCoroutine(FadeInNotSphereScene());
-
-        //    CalendarSceneBool =! CalendarSceneBool;
-        //}
-        //else
-        //    return;
     }
-
-    public void ChangeTransparencyOnProfile()
-    {
-        if (uiManagerDockBar.CanvasRecord.Contains("SpehereCanvas") is true && uiManagerDockBar.pressed)
-        {
-            Debug.Log("is");
-            Invoke("FadeInNotSphereScene", 0);
-        }
-        else if (uiManagerDockBar.CanvasRecord.Contains("SpehereCanvas") is false && !uiManagerDockBar.pressed)
-        {
-            Debug.Log("not");
-            Invoke("NotSphereScene", 0);
-        }
-    }
-     
-
-
 
     IEnumerator FadeInNotSphereScene()
     {
         yield return new WaitForSeconds(SceneFadeingSpeed);
-        //HomeBGAlpha.alpha = 1;
-        //SignInUpAlpha.alpha = 1;
-
-        //ScrollViewChatAlpha.alpha = 1;
 
         CalendarContentAlpha.alpha = 1;
         ManagerContentAlpha.alpha = 1;
@@ -172,25 +142,15 @@ public class UIManager : MonoBehaviour
 
     public void SphereScene()
     {
-        //if (CalendarSceneBool)
-        //{
-            //uiManagerDockBar.CanvasRecord = "SphereCanvas";
-            //SceneManager.LoadScene(Office360, LoadSceneMode.Single);
             HomeBGAlpha.alpha = 0;
 
             DOTween.To(() => MonocromeBGAlpha.alpha, x => MonocromeBGAlpha.alpha = x, 0, SceneFadeingSpeed).SetEase(Ease.InQuad);
 
             SignInUpAlpha.alpha = 0;
-            //ScrollViewChatAlpha.alpha = 0;
             CalendarContentAlpha.alpha = 0;
             ManagerContentAlpha.alpha = 0;
             TeamContentAlpha.alpha = 0;
             ProfileContentAlpha.alpha = 0;
-
-        //    CalendarSceneBool = !CalendarSceneBool;
-        //}
-        //else
-        //    return;
     }
 
 }
