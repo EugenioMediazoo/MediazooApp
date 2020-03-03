@@ -127,17 +127,32 @@ public class UIManager : MonoBehaviour
 
     public void NotSphereScene()
     {
-        if (!CalendarSceneBool)
-        {
+        //if (!CalendarSceneBool)
+        //{
             //SceneManager.LoadScene(Onboarding, LoadSceneMode.Single);
             DOTween.To(() => MonocromeBGAlpha.alpha, x => MonocromeBGAlpha.alpha = x, 1, SceneFadeingSpeed).SetEase(Ease.InQuad);
             StartCoroutine(FadeInNotSphereScene());
 
-            CalendarSceneBool =! CalendarSceneBool;
-        }
-        else
-            return;
+        //    CalendarSceneBool =! CalendarSceneBool;
+        //}
+        //else
+        //    return;
     }
+
+    public void ChangeTransparencyOnProfile()
+    {
+        if (uiManagerDockBar.CanvasRecord.Contains("SpehereCanvas") is true && uiManagerDockBar.pressed)
+        {
+            Debug.Log("is");
+            Invoke("FadeInNotSphereScene", 0);
+        }
+        else if (uiManagerDockBar.CanvasRecord.Contains("SpehereCanvas") is false && !uiManagerDockBar.pressed)
+        {
+            Debug.Log("not");
+            Invoke("NotSphereScene", 0);
+        }
+    }
+     
 
 
 
@@ -157,12 +172,11 @@ public class UIManager : MonoBehaviour
 
     public void SphereScene()
     {
-        if (CalendarSceneBool)
-        {
-            uiManagerDockBar.CanvasRecord = "SphereCanvas";
+        //if (CalendarSceneBool)
+        //{
+            //uiManagerDockBar.CanvasRecord = "SphereCanvas";
             //SceneManager.LoadScene(Office360, LoadSceneMode.Single);
             HomeBGAlpha.alpha = 0;
-            //MonocromeBGAlpha.alpha = 0;
 
             DOTween.To(() => MonocromeBGAlpha.alpha, x => MonocromeBGAlpha.alpha = x, 0, SceneFadeingSpeed).SetEase(Ease.InQuad);
 
@@ -173,10 +187,10 @@ public class UIManager : MonoBehaviour
             TeamContentAlpha.alpha = 0;
             ProfileContentAlpha.alpha = 0;
 
-            CalendarSceneBool = !CalendarSceneBool;
-        }
-        else
-            return;
+        //    CalendarSceneBool = !CalendarSceneBool;
+        //}
+        //else
+        //    return;
     }
 
 }

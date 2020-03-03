@@ -35,18 +35,23 @@ public class InstructionButton : MonoBehaviour
         if (NextCardPivot != null)
         {
             //NextVideo.Play();
-            NextCardPivot.transform.DORotate(new Vector3(0, 0, 0), animationSpeed, RotateMode.Fast).SetEase(Ease.InOutBack);
-            DOTween.To(() => NextCardPivotCG.alpha, x => NextCardPivotCG.alpha = x, 1, (animationSpeed/2)).SetEase(Ease.InCubic);
+            //NextCardPivot.transform.DORotate(new Vector3(0, 0, 0), animationSpeed, RotateMode.Fast).SetEase(Ease.InOutBack).SetDelay(0.2f);
+            //DOTween.To(() => NextCardPivotCG.alpha, x => NextCardPivotCG.alpha = x, 1, (animationSpeed/5)).SetEase(Ease.InCubic);
+            
+            Sequence mySequenceIn = DOTween.Sequence();
+            mySequenceIn.Append(DOTween.To(() => NextCardPivotCG.alpha, x => NextCardPivotCG.alpha = x, 1, (0.2f)).SetEase(Ease.InCubic))
+                .Append(NextCardPivot.transform.DORotate(new Vector3(0, 0, 0), animationSpeed, RotateMode.Fast).SetEase(Ease.InOutBack).SetDelay(0.3f));
         }
 
         //CurrentVideo.Stop();
-        CurrentCardPivot.transform.DORotate(new Vector3(0, 0, 25), animationSpeed, RotateMode.Fast).SetEase(Ease.InOutBack);
-        DOTween.To(() => CurrentCardPivotCG.alpha, x => CurrentCardPivotCG.alpha = x, 0, animationSpeed).SetEase(Ease.InOutCubic).SetDelay(0.5f);
+        Sequence mySequenceOut = DOTween.Sequence();
+        mySequenceOut.Append(CurrentCardPivot.transform.DORotate(new Vector3(0, 0, 25), animationSpeed, RotateMode.Fast).SetEase(Ease.InOutBack).SetDelay(0.3f))
+            .Append(DOTween.To(() => CurrentCardPivotCG.alpha, x => CurrentCardPivotCG.alpha = x, 0, animationSpeed).SetEase(Ease.InOutCubic).SetDelay(0.3f));
 
         if (Marker != null)
         {
             var MarkerPos = Marker.transform.localPosition.x;
-            Marker.transform.DOLocalMoveX(MarkerPos + 80, animationSpeed).SetEase(Ease.InOutBack);
+            Marker.transform.DOLocalMoveX(MarkerPos + 80, animationSpeed).SetEase(Ease.InOutBack).SetDelay(0.3f);
         }
         else
             return;

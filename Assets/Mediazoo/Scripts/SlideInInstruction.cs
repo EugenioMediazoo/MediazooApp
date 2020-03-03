@@ -47,8 +47,8 @@ public class SlideInInstruction : MonoBehaviour
             low = false;
 
             Sequence mySequence = DOTween.Sequence();
-            mySequence.Append(DOTween.To(() => BlurBGCanvas.alpha, x => BlurBGCanvas.alpha = x, 1, (animationSpeed / 2)).SetEase(Ease.InCubic))
-                .Append(DOTween.To(() => MarkerGroupCanvas.alpha, x => MarkerGroupCanvas.alpha = x, 1, (animationSpeed / 2)).SetEase(Ease.InCubic));
+            mySequence.Append(DOTween.To(() => BlurBGCanvas.alpha, x => BlurBGCanvas.alpha = x, 1, (animationSpeed / 5)).SetEase(Ease.InCubic).SetDelay(0.3f))
+                .Append(DOTween.To(() => MarkerGroupCanvas.alpha, x => MarkerGroupCanvas.alpha = x, 1, (animationSpeed / 5)).SetEase(Ease.InCubic));
         }
     }
 
@@ -59,7 +59,7 @@ public class SlideInInstruction : MonoBehaviour
             this.transform.DOLocalMoveY(-10000f, 1).SetEase(Ease.InCubic);
             low = false;
 
-            DOTween.To(() => BlurBGCanvas.alpha, x => BlurBGCanvas.alpha = x, 1, (animationSpeed / 2)).SetEase(Ease.InCubic);
+            DOTween.To(() => BlurBGCanvas.alpha, x => BlurBGCanvas.alpha = x, 1, (animationSpeed / 5)).SetEase(Ease.InCubic).SetDelay(0.3f);
         }
     }
 
@@ -75,7 +75,4 @@ public class SlideInInstruction : MonoBehaviour
         yield return new WaitForSeconds(animationSpeed);
         BlurBG.SetActive(false);
     }
-
-
-
 }
