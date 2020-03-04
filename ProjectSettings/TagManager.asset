@@ -6,6 +6,11 @@ TagManager:
   tags:
   - SignInBubbles
   - SignUpBubbles
+  - DeckOne
+  - DeckTwo
+  - DeckThree
+  - DeckFour
+  - DeckFive
   layers:
   - Default
   - TransparentFX
