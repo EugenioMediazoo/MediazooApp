@@ -133,7 +133,6 @@ public class UIManagerInstagram : MonoBehaviour
         DOTween.To(() => ValuesTitleCG.alpha, x => ValuesTitleCG.alpha = x, 0, AnimSpeed).SetEase(Ease.InQuad);
         DOTween.To(() => UserIconCG.alpha, x => UserIconCG.alpha = x, 0, AnimSpeed).SetEase(Ease.InQuad);
         DOTween.To(() => DockBarCG.alpha, x => DockBarCG.alpha = x, 0, AnimSpeed).SetEase(Ease.InQuad);
-        DockBar.SetActive(false);
 
         bool raycasteable = true;
 
@@ -177,8 +176,6 @@ public class UIManagerInstagram : MonoBehaviour
 
                 WaitForSeconds waitLoad = new WaitForSeconds(ReadingTime);
                 yield return waitLoad;
-
-                DockBar.SetActive(true);
 
                 Sequence mySequence = DOTween.Sequence()
                     .Append(DOTween.To(() => InstaSliderCG.alpha, x => InstaSliderCG.alpha = x, 0, 0))
