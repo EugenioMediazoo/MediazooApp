@@ -38,6 +38,11 @@ public class UIManagerSignIn : MonoBehaviour
     public GameObject AnswerTwo;
     private CanvasGroup AnswerTwoCG;
 
+    public GameObject AnswerThree;
+    private CanvasGroup AnswerThreeCG;
+    public GameObject AnswerFour;
+    private CanvasGroup AnswerFourCG;
+
     //buttons options
     public GameObject OptionContainer;
     private CanvasGroup OptionContainerCG;
@@ -45,6 +50,13 @@ public class UIManagerSignIn : MonoBehaviour
     private CanvasGroup OptionOneCG;
     public GameObject OptionTwoObj;
     private CanvasGroup OptionTwoCG;
+
+    public GameObject OptionTwoContainer;
+    private CanvasGroup OptionTwoContainerCG;
+    public GameObject OptionThreeObj;
+    private CanvasGroup OptionThreeCG;
+    public GameObject OptionFourObj;
+    private CanvasGroup OptionFourCG;
 
     //Instrctions
     public GameObject DockBarButton;
@@ -66,6 +78,7 @@ public class UIManagerSignIn : MonoBehaviour
 
         playAgain++;
     }
+
 
     public void Replay()
     {
@@ -95,14 +108,14 @@ public class UIManagerSignIn : MonoBehaviour
     {
         SignIn.SetActive(true);
         
-        StartCoroutine(MyFunctions());
+        StartCoroutine(FirstCP());
     }
 
-    IEnumerator MyFunctions()
+    IEnumerator FirstCP()
     {
         WaitForSeconds wait = new WaitForSeconds(AnimSpeed * 2);
 
-        for (o = 0; o < chats.Length; o++)
+        for (o = 0; o < 2; o++)
         {
             yield return wait;
 
@@ -132,6 +145,41 @@ public class UIManagerSignIn : MonoBehaviour
         DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
     }
 
+
+    IEnumerator SecondCP()
+    {
+        WaitForSeconds wait = new WaitForSeconds(AnimSpeed * 2);
+
+        for (o = 2; o < 4; o++)
+        {
+            yield return wait;
+
+            chats[o].SetActive(true);
+
+            chatCG = chats[o].GetComponent<CanvasGroup>();
+            DOTween.To(() => chatCG.alpha, x => chatCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
+        }
+
+        yield return wait;
+
+        Typing.SetActive(false);
+
+        OptionTwoContainer.SetActive(true);
+        if (playAgain > 2)
+        {
+            OptionThreeObj.SetActive(true);
+            OptionThreeCG = OptionThreeObj.GetComponent<CanvasGroup>();
+            OptionThreeCG.alpha = 1;
+
+            OptionFourObj.SetActive(true);
+            OptionFourCG = OptionFourObj.GetComponent<CanvasGroup>();
+            OptionFourCG.alpha = 1;
+        }
+
+        OptionTwoContainerCG = OptionTwoContainer.GetComponent<CanvasGroup>();
+        DOTween.To(() => OptionTwoContainerCG.alpha, x => OptionTwoContainerCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart);
+    }
+
     public void typing()
     {
         Typing.SetActive(true);
@@ -149,9 +197,40 @@ public class UIManagerSignIn : MonoBehaviour
 
         AnswerOneCG = AnswerOne.GetComponent<CanvasGroup>();
         Sequence mySequence = DOTween.Sequence();
-        mySequence.Append(DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 0, AnimSpeed/2).SetEase(Ease.InQuart))
+        mySequence.Append(DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 0, AnimSpeed / 2).SetEase(Ease.InQuart))
             .Append(DOTween.To(() => AnswerOneCG.alpha, x => AnswerOneCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart));
 
+        OptionContainer.SetActive(false);
+
+        StartCoroutine(SecondCP());
+        Invoke("typing", AnimSpeed * 2);
+    }
+
+    public void OptionTwo()
+    {
+        AnswerTwo.SetActive(true);
+
+        AnswerTwoCG = AnswerTwo.GetComponent<CanvasGroup>();
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 0, AnimSpeed / 2).SetEase(Ease.InQuart))
+            .Append(DOTween.To(() => AnswerTwoCG.alpha, x => AnswerTwoCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart));
+
+        OptionContainer.SetActive(false);
+
+        StartCoroutine(SecondCP());
+        Invoke("typing", AnimSpeed * 2);
+    }
+
+    public void OptionThree()
+    {
+        AnswerThree.SetActive(true);
+
+        AnswerThreeCG = AnswerThree.GetComponent<CanvasGroup>();
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(DOTween.To(() => OptionTwoContainerCG.alpha, x => OptionTwoContainerCG.alpha = x, 0, AnimSpeed/2).SetEase(Ease.InQuart))
+            .Append(DOTween.To(() => AnswerThreeCG.alpha, x => AnswerThreeCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart));
+        
+        //conversation finished
         StartCoroutine(InvokeManagerMethods());
     }
 
@@ -168,14 +247,14 @@ public class UIManagerSignIn : MonoBehaviour
         DockBarButton.SetActive(true);
     }
 
-    public void OptionTwo()
+    public void OptionFour()
     {
-        AnswerTwo.SetActive(true);
+        AnswerFour.SetActive(true);
 
-    AnswerTwoCG = AnswerTwo.GetComponent<CanvasGroup>();
+        AnswerFourCG = AnswerFour.GetComponent<CanvasGroup>();
         Sequence mySequence = DOTween.Sequence();
-        mySequence.Append(DOTween.To(() => OptionContainerCG.alpha, x => OptionContainerCG.alpha = x, 0, AnimSpeed/2).SetEase(Ease.InQuart))
-            .Append(DOTween.To(() => AnswerTwoCG.alpha, x => AnswerTwoCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart));
+        mySequence.Append(DOTween.To(() => OptionTwoContainerCG.alpha, x => OptionTwoContainerCG.alpha = x, 0, AnimSpeed/2).SetEase(Ease.InQuart))
+            .Append(DOTween.To(() => AnswerFourCG.alpha, x => AnswerFourCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuart));
 
         //go back
         StartCoroutine(RestartManagerMethods());

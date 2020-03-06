@@ -121,7 +121,6 @@ public class UIManagerInstagram : MonoBehaviour
 
      public void MakeVisible()
     {
-        
         InstaSlider.maxValue = ReadingTime;
         if (InstaSlider.value != 0)
             InstaSlider.value = 0;

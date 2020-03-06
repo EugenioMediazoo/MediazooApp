@@ -55,13 +55,13 @@ public class UIManagerDockBar : MonoBehaviour
 
     public void ShowDockBar()
     {
-        DockBar.transform.DOMoveY(0, AnimSpeed).SetEase(Ease.InOutCubic);
+        DockBar.transform.DOMoveY(20, AnimSpeed).SetEase(Ease.InOutCubic);
     }
 
     public void CalendarCanvas()
     {
         pressed = true;
-        CanvasRecord = "CalendarCanvas";
+        CanvasRecord = "CalendarCanvas";  
 
         Sequence mySequence = DOTween.Sequence();
         mySequence.PrependInterval(ScrollWait)

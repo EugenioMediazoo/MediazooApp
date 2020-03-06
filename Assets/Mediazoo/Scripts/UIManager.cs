@@ -30,6 +30,8 @@ public class UIManager : MonoBehaviour
     private CanvasGroup SignInUpAlpha;
     public GameObject ScrollViewChat;
     private CanvasGroup ScrollViewChatAlpha;
+    public GameObject ShadeFadeOut;
+    private CanvasGroup ShadeFadeOutAlpha;
     public GameObject ScrollView;
     private CanvasGroup ScrollViewAlpha;
 
@@ -59,6 +61,8 @@ public class UIManager : MonoBehaviour
         MonocromeBGAlpha = MonocromeBG.GetComponent<CanvasGroup>();
         SignInUpAlpha = SignInUp.GetComponent<CanvasGroup>();
         ScrollViewChatAlpha = ScrollViewChat.GetComponent<CanvasGroup>();
+        ShadeFadeOutAlpha = ShadeFadeOut.GetComponent<CanvasGroup>();
+
         ScrollViewAlpha = ScrollView.GetComponent<CanvasGroup>();
 
         CalendarContentAlpha = CalendarContent.GetComponent<CanvasGroup>();
@@ -84,7 +88,9 @@ public class UIManager : MonoBehaviour
     {
         Sequence mySequence = DOTween.Sequence();
         mySequence.Append(LoadingCircle.transform.DOScale(new Vector3(30, 30, 30), AnimSpeed).SetEase(Ease.InQuad))
-            .Join(DOTween.To(() => SignInUpAlpha.alpha, x => SignInUpAlpha.alpha = x, 0, SceneFadeingSpeed).SetEase(Ease.InQuad));
+            .Join(DOTween.To(() => SignInUpAlpha.alpha, x => SignInUpAlpha.alpha = x, 0, SceneFadeingSpeed).SetEase(Ease.InQuad))
+            .AppendInterval(0.5f)
+            .Append(DOTween.To(() => ShadeFadeOutAlpha.alpha, x => ShadeFadeOutAlpha.alpha = x, 1, SceneFadeingSpeed));
 
         SignInUp.SetActive(false);
         Invoke("HomeBGOn", (AnimSpeed+ SceneFadeingSpeed));
@@ -114,7 +120,8 @@ public class UIManager : MonoBehaviour
         SignInUp.SetActive(true);
 
         Sequence mySequence = DOTween.Sequence();
-        mySequence.Append(LoadingCircle.transform.DOScale(new Vector3(0, 0, 0), AnimSpeed).SetEase(Ease.InQuad))
+        mySequence.Append(DOTween.To(() => ShadeFadeOutAlpha.alpha, x => ShadeFadeOutAlpha.alpha = x, 0, 0))
+           .Append(LoadingCircle.transform.DOScale(new Vector3(0, 0, 0), AnimSpeed).SetEase(Ease.InQuad))
            .Append(DOTween.To(() => SignInUpAlpha.alpha, x => SignInUpAlpha.alpha = x, 1, SceneFadeingSpeed).SetEase(Ease.InQuad));
     }
 

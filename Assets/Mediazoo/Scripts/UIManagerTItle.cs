@@ -50,7 +50,7 @@ public class UIManagerTItle : MonoBehaviour
         Alfred.transform.DOMoveY(OffScreenTopLeft.transform.position.y, 0);
 
         AlfredAlpha = Alfred.GetComponent<CanvasGroup>();
-
+        
         ScrollWait = ScrollView.GetComponent<AutoScroll>().ScrollSpeed;
     }
 
