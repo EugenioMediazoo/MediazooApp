@@ -129,7 +129,7 @@ public class UIManagerTItle : MonoBehaviour
     {
         UserIconImg.transform.DOLocalRotate(new Vector3(0,0,2160), AnimSpeed, RotateMode.FastBeyond360).SetEase(Ease.InOutCubic);
 
-       if(uiManagerDockBar.pressed == true)
+        if (uiManagerDockBar.pressed == false)
         {
             Sequence mySequence = DOTween.Sequence();
             mySequence.PrependInterval(ScrollWait)
@@ -142,7 +142,7 @@ public class UIManagerTItle : MonoBehaviour
             mySecondSequence.PrependInterval(ScrollWait)
               .Append(Profile.transform.DOMoveY(OnScreenTopLeft.transform.position.y, AnimSpeed).SetEase(Ease.InBack));
         }
-        else if (uiManagerDockBar.pressed == false && uiManagerDockBar.CanvasRecord.Contains("CalendarCanvas") is true)
+        else if (uiManagerDockBar.pressed == true && uiManagerDockBar.CanvasRecord.Contains("CalendarCanvas") is true)
         {
             Sequence mySequence = DOTween.Sequence();
             mySequence.PrependInterval(ScrollWait)
