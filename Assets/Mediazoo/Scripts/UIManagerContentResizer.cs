@@ -23,6 +23,11 @@ public class UIManagerContentResizer : MonoBehaviour
         ContentMain.sizeDelta = Reminder;
     }
 
+    public void ContentViewer()
+    {
+       //ContentMain.sizeDelta = User;
+    }
+
     public void ContentValues()
     {
         ContentMain.sizeDelta = Values;
