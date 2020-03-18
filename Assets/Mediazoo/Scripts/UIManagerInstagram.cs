@@ -183,7 +183,7 @@ public class UIManagerInstagram : MonoBehaviour
                     .Join(DOTween.To(() => ValuesContentCG.alpha, x => ValuesContentCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuad))
                     .Join(DOTween.To(() => ValuesTitleCG.alpha, x => ValuesTitleCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuad))
                     .Join(DOTween.To(() => UserIconCG.alpha, x => UserIconCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuad))
-                    .Join(DOTween.To(() => DockBarCG.alpha, x => DockBarCG.alpha = x, 0, AnimSpeed).SetEase(Ease.InQuad));
+                    .Join(DOTween.To(() => DockBarCG.alpha, x => DockBarCG.alpha = x, 1, AnimSpeed).SetEase(Ease.InQuad));
 
                 //Invoke("MakeVisible", 0);
             }
