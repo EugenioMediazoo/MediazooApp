@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Linq;
 
 public class UIManagerInstagram : MonoBehaviour
 {
@@ -106,7 +107,8 @@ public class UIManagerInstagram : MonoBehaviour
 
     void findCards()
     {
-        Deck = GameObject.FindGameObjectsWithTag(tag);
+        Deck = GameObject.FindGameObjectsWithTag(tag).OrderBy(go => go.name).ToArray(); ;
+        //WayPoints = GameObject.FindGameObjectsWithTag("Waypoint")
 
         foreach (GameObject Card in Deck)
         {
@@ -166,6 +168,8 @@ public class UIManagerInstagram : MonoBehaviour
                 Sequence mySequence = DOTween.Sequence();
                 mySequence.Append(Deck[i].transform.DOMoveX((R.transform.position.x * 0.5f) * -1, AnimSpeed)).SetEase(Ease.InOutQuad)
                     .Join(Deck[i + 1].transform.DOMoveX((R.transform.position.x * 0.5f), AnimSpeed)).SetEase(Ease.InOutQuad);
+
+                Debug.Log(Deck[i].name);
             }
             else
             {
